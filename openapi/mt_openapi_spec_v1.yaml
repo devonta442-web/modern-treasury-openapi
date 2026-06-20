@@ -4190,17 +4190,17 @@ paths:
         schema:
           type: string
           enum:
-          - connections
-          - counterparties
-          - expected_payments
-          - external_accounts
-          - identifications
-          - incoming_payment_details
-          - internal_accounts
-          - legal_entities
-          - organizations
-          - payment_orders
-          - transactions
+          - connection
+          - counterparty
+          - expected_payment
+          - external_account
+          - identification
+          - incoming_payment_detail
+          - internal_account
+          - legal_entity
+          - organization
+          - payment_order
+          - transaction
         description: The type of the associated object. Currently can be one of `payment_order`,
           `transaction`, `expected_payment`, `counterparty`, `organization`, `case`,
           `internal_account`, `decision`, or `external_account`.
@@ -7820,10 +7820,22 @@ paths:
       responses:
         '202':
           description: process started
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/legal_entity"
         '422':
           description: unprocessable entity
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_message"
         '405':
           description: not allowed in production
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error_message"
       requestBody:
         content:
           application/json:
@@ -11033,17 +11045,17 @@ components:
         documentable_type:
           type: string
           enum:
-          - connections
-          - counterparties
-          - expected_payments
-          - external_accounts
-          - identifications
-          - incoming_payment_details
-          - internal_accounts
-          - legal_entities
-          - organizations
-          - payment_orders
-          - transactions
+          - connection
+          - counterparty
+          - expected_payment
+          - external_account
+          - identification
+          - incoming_payment_detail
+          - internal_account
+          - legal_entity
+          - organization
+          - payment_order
+          - transaction
         document_type:
           type: string
           description: A category given to the document, can be `null`.
@@ -12450,6 +12462,7 @@ components:
           - mx_curp
           - mx_ine
           - mx_rfc
+          - national_id
           - nl_bsn
           - nl_btw
           - nl_rsin
@@ -12616,6 +12629,7 @@ components:
           - mx_curp
           - mx_ine
           - mx_rfc
+          - national_id
           - nl_bsn
           - nl_btw
           - nl_rsin
@@ -13094,6 +13108,7 @@ components:
           description: The nickname of the account.
         party_name:
           type: string
+          nullable: true
           description: The legal name of the entity which owns the account.
         party_address:
           type: object
@@ -13127,9 +13142,9 @@ components:
           - USD
           - CAD
           - USDC
-          - USDG
           - USDT
           - PYUSD
+          - USDG
           example: USD
           description: The currency of the internal account. Supports fiat and stablecoin
             currencies.
@@ -13198,7 +13213,6 @@ components:
       required:
       - connection_id
       - name
-      - party_name
       - currency
     internal_account_update_request:
       type: object
@@ -20334,7 +20348,6 @@ components:
           - goldman_sachs_payment_request_id
           - goldman_sachs_request_id
           - goldman_sachs_unique_payment_id
-          - interac_message_id
           - jpmc_ccn
           - jpmc_clearing_system_reference
           - jpmc_customer_reference_id
@@ -20362,9 +20375,6 @@ components:
           - pnc_transaction_reference_number
           - rbc_wire_reference_id
           - rtp_instruction_id
-          - signet_api_reference_id
-          - signet_confirmation_id
-          - signet_request_id
           - silvergate_payment_id
           - svb_end_to_end_id
           - svb_payment_id
@@ -20473,7 +20483,6 @@ components:
           - goldman_sachs_payment_request_id
           - goldman_sachs_request_id
           - goldman_sachs_unique_payment_id
-          - interac_message_id
           - jpmc_ccn
           - jpmc_clearing_system_reference
           - jpmc_customer_reference_id
@@ -20501,9 +20510,6 @@ components:
           - pnc_transaction_reference_number
           - rbc_wire_reference_id
           - rtp_instruction_id
-          - signet_api_reference_id
-          - signet_confirmation_id
-          - signet_request_id
           - silvergate_payment_id
           - svb_end_to_end_id
           - svb_payment_id
